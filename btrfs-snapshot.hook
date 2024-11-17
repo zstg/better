@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Creating a pre-transaction Btrfs snapshot...
+When = PreTransaction
+Exec = /usr/bin/better create "Pacman pre-transaction snapshot"
