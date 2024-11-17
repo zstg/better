@@ -8,8 +8,9 @@ fi
 # Variables
 SNAPSHOT_DIR="/.snapshots"  # Directory where snapshots are stored
 ROOT_SUBVOL="/"
-DATE=$(date +"%Y-%m-%d_%H-%M-%S")
-UUID=$(blkid -s UUID -o value /dev/vda2)  # Change /dev/vda2 to your root partition
+DATE=$(date +"%Y-%m-%d %H:%M:%S")
+ROOT_PART=$(sudo df / | tail -1 | awk '{print $1}') 
+UUID=$(sudo blkid -s UUID -o value $ROOT_PART)
 BOOT_LOADER_DIR="/boot/loader/entries"
 
 # Functions
@@ -35,8 +36,8 @@ function show_usage() {
 
 # Generate snapshot name
 function generate_snapshot_name() {
-    local timestamp=$(date +"%Y%m%d%H%M%S")
-    echo "snapshot-${timestamp}"
+    local timestamp=$(date +"%Y-%m-%d %H%M%S")
+    echo "Arch linux (at ${timestamp})"
 }
 
 # Create a new snapshot
